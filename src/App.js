@@ -1,43 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Print from 'the-dep/print'
 
 class App extends Component {
-  constructor () {
+  constructor() {
     super()
-    this.state = {Print: null}
+    this.state = { DynamicPrint: null }
   }
 
   componentDidMount() {
     setTimeout(() => {
-      import(/*webpackPrefetch: true*/ 'the-dep/Print').then(
-        Print => {
-          console.log('Got the print library!')
-          this.setState({
-            Print: Print.default
-          })
-        }
-      )
+      import(/*webpackPrefetch: true*/ 'the-dep/print').then(Print => {
+        console.log('Got the print library!')
+        this.setState({
+          DynamicPrint: Print.default
+        })
+      })
     }, 1000)
   }
 
-  // loadPrint() {
-  //   // This is if the library has the "import" statement (not in this example)
-  //   getPrint().then(p => {
-  //     console.log('Got Print, setting state: ', p.default)
-  //     this.setState({Print: p.default})
-  //   }).catch(err => {
-  //     console.log('Error loading the print module: ', err)
-  //   })
-  // }
-
   render() {
-    const { Print } = this.state
+    const { DynamicPrint } = this.state
     return (
       <div>
         <p>You should see the Print component below:</p>
-        {Print && <Print/>}
+        <p>Staticlly built in:</p>
+        <div style={{ backgroundColor: 'lightpink', padding: 10, borderRadius: 5 }}>
+          <Print />
+        </div>
+        <p>Dynamically loaded after the fact</p>
+        <div style={{ backgroundColor: 'lightgrey', padding: 10, borderRadius: 5 }}>{DynamicPrint && <DynamicPrint />}</div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

@@ -6,9 +6,9 @@ module.exports = {
   entry: ['./src/index.js'],
   output: {
     library: 'deptest',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-    filename: '[name].js',
+    // libraryTarget: 'umd',
+    // umdNamedDefine: true,
+    filename: 'deptest.js',
     path: path.resolve(__dirname, 'build')
   },
   module: {
