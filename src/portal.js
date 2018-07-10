@@ -36,11 +36,13 @@ class Portal extends Component {
     document.write(initialContent)
     document.close()
 
+    this.props.onSetDocument(document)
+
     this.setState({ document })
   }
 
   getHead() {
-    return <style />
+    return <script />
   }
 
   handleRef(node) {
@@ -50,7 +52,7 @@ class Portal extends Component {
   }
 
   render() {
-    const { children, expanded, theme } = this.props
+    const { children } = this.props
     const { document } = this.state
 
     return (

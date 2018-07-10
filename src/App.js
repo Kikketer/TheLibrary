@@ -5,7 +5,9 @@ import Portal from './portal'
 class App extends Component {
   constructor() {
     super()
-    this.state = { DynamicPrint: null }
+    this.state = { DynamicPrint: null, document: null }
+
+    this.onSetDocument = this.onSetDocument.bind(this)
   }
 
   componentDidMount() {
@@ -19,21 +21,20 @@ class App extends Component {
     }, 1000)
   }
 
+  onSetDocument(document) {
+    console.log('Document is ready...')
+    this.setState({ document })
+  }
+
   render() {
-    const { DynamicPrint } = this.state
+    const { DynamicPrint, document } = this.state
     return (
       <div>
         <p>You should see the Print component below:</p>
-        <p>Staticlly built in:</p>
-        <Portal>
+        <p>Statically built in:</p>
+        <Portal onSetDocument={this.onSetDocument}>
           <div style={{ backgroundColor: 'lightpink', padding: 10, borderRadius: 5 }}>
-            <Print />
-          </div>
-        </Portal>
-        <p>Dynamically loaded after the fact</p>
-        <Portal>
-          <div style={{ backgroundColor: 'lightgrey', padding: 10, borderRadius: 5 }}>
-            {DynamicPrint && <DynamicPrint />}
+            {document && <Print document={document} />}
           </div>
         </Portal>
       </div>
