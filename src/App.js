@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Print from 'the-dep/print'
+import Print from 'TheDependency/print'
+import Portal from './portal'
 
 class App extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class App extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      import(/*webpackPrefetch: true*/ 'the-dep/print').then(Print => {
+      import(/*webpackPrefetch: true*/ 'TheDependency/print').then(Print => {
         console.log('Got the print library!')
         this.setState({
           DynamicPrint: Print.default
@@ -24,11 +25,17 @@ class App extends Component {
       <div>
         <p>You should see the Print component below:</p>
         <p>Staticlly built in:</p>
-        <div style={{ backgroundColor: 'lightpink', padding: 10, borderRadius: 5 }}>
-          <Print />
-        </div>
+        <Portal>
+          <div style={{ backgroundColor: 'lightpink', padding: 10, borderRadius: 5 }}>
+            <Print />
+          </div>
+        </Portal>
         <p>Dynamically loaded after the fact</p>
-        <div style={{ backgroundColor: 'lightgrey', padding: 10, borderRadius: 5 }}>{DynamicPrint && <DynamicPrint />}</div>
+        <Portal>
+          <div style={{ backgroundColor: 'lightgrey', padding: 10, borderRadius: 5 }}>
+            {DynamicPrint && <DynamicPrint />}
+          </div>
+        </Portal>
       </div>
     )
   }

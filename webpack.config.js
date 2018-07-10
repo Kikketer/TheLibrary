@@ -20,12 +20,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, 'public', 'index.html'),
-        to: path.resolve(__dirname, 'build')
-      }
-    ])
-  ]
+  plugins: []
 }

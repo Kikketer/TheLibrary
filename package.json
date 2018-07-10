@@ -1,12 +1,12 @@
 {
-  "name": "dep-test",
+  "name": "TheLibrary",
   "version": "0.1.0",
   "private": true,
   "main": "build/index.js",
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "the-dep": "git+https://github.com/Kikketer/TheDependency.git"
+    "TheDependency": "git+https://github.com/Kikketer/TheDependency.git"
   },
   "scripts": {
     "start-dev": "NODE_ENV=development webpack-dev-server",
