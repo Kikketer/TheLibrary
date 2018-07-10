@@ -5,9 +5,10 @@ import Portal from './portal'
 class App extends Component {
   constructor() {
     super()
-    this.state = { DynamicPrint: null, document: null }
+    this.state = { DynamicPrint: null, DynamicDocument: null, StaticDocument: null }
 
-    this.onSetDocument = this.onSetDocument.bind(this)
+    this.onSetDynamicDocument = this.onSetDynamicDocument.bind(this)
+    this.onSetStaticDocument = this.onSetStaticDocument.bind(this)
   }
 
   componentDidMount() {
@@ -21,20 +22,31 @@ class App extends Component {
     }, 1000)
   }
 
-  onSetDocument(document) {
-    console.log('Document is ready...')
-    this.setState({ document })
+  onSetDynamicDocument(DynamicDocument) {
+    console.log('Dynamic Document is ready...')
+    this.setState({ DynamicDocument })
+  }
+
+  onSetStaticDocument(StaticDocument) {
+    console.log('Static Document is ready...')
+    this.setState({ StaticDocument })
   }
 
   render() {
-    const { DynamicPrint, document } = this.state
+    const { DynamicPrint, DynamicDocument, StaticDocument } = this.state
     return (
       <div>
         <p>You should see the Print component below:</p>
         <p>Statically built in:</p>
-        <Portal onSetDocument={this.onSetDocument}>
+        <Portal onSetDocument={this.onSetStaticDocument}>
           <div style={{ backgroundColor: 'lightpink', padding: 10, borderRadius: 5 }}>
-            {document && <Print document={document} />}
+            {StaticDocument && <Print document={StaticDocument} />}
+          </div>
+        </Portal>
+        <p>Dynamically added on the fly:</p>
+        <Portal onSetDocument={this.onSetDynamicDocument}>
+          <div style={{ backgroundColor: 'lightpink', padding: 10, borderRadius: 5 }}>
+            {!!DynamicPrint && !!DynamicDocument && <DynamicPrint document={DynamicDocument} />}
           </div>
         </Portal>
       </div>
